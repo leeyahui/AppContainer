@@ -21,10 +21,10 @@ namespace SmileWei.EmbeddedApp
         Action<object, EventArgs> appIdleAction = null;
         EventHandler appIdleEvent = null;
 
-        public AppContainer(bool showEmbedResult = false)
+        public AppContainer()
         {
             InitializeComponent();
-            this.ShowEmbedResult = showEmbedResult;
+            this.ShowEmbedResult = false;
             appIdleAction = new Action<object, EventArgs>(Application_Idle);
             appIdleEvent = new EventHandler(appIdleAction);
         }

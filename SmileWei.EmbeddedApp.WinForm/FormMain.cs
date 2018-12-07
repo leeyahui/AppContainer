@@ -15,7 +15,7 @@ namespace SmileWei.EmbeddedApp.WinForm
         public FormMain()
         {
             InitializeComponent();
-            this.appBox.ShowEmbedResult = true;
+            this.appBox.ShowEmbedResult = false;
             Application.Idle += Application_Idle;
             //appBox.AppFilename = @"C:\Users\DELL\AppData\Local\Google\Chrome\Application\chrome.exe";
             //appBox.Start();
@@ -29,9 +29,9 @@ namespace SmileWei.EmbeddedApp.WinForm
                 {
                     try
                     {
-                        lblInfo.Text = string.Format("Main Window Handle:{0}|Original Parent Window Handle:{1}",
-                            appBox.AppProcess.MainWindowHandle,
-                            appBox.embedResult);
+                        //lblInfo.Text = string.Format("Main Window Handle:{0}|Original Parent Window Handle:{1}",
+                        //    appBox.AppProcess.MainWindowHandle,
+                        //    appBox.embedResult);
                     }
                     catch (Exception)
                     {
@@ -93,7 +93,7 @@ namespace SmileWei.EmbeddedApp.WinForm
         );
         private void lblInfo_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(this.lblInfo.Text);
+            //Clipboard.SetText(this.lblInfo.Text);
         }
 
         private void FormMain_Resize(object sender, EventArgs e)
