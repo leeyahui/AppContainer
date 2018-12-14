@@ -40,7 +40,7 @@ namespace SmileWei.EmbeddedApp
         /// <summary>
         /// 将属性<code>AppFilename</code>指向的应用程序打开并嵌入此容器
         /// </summary>
-        public void Start()
+        public void Start(string Arguments)
         {
             if (AppProcess != null)
             {
@@ -52,6 +52,7 @@ namespace SmileWei.EmbeddedApp
                 ProcessStartInfo info = new ProcessStartInfo(this.m_AppFilename);
                 info.UseShellExecute = true;
                 info.WindowStyle = ProcessWindowStyle.Minimized;
+                info.Arguments = Arguments;
                 //info.WindowStyle = ProcessWindowStyle.Hidden;
                 AppProcess = System.Diagnostics.Process.Start(info);
                 // Wait for process to be created and enter idle condition
@@ -64,10 +65,10 @@ namespace SmileWei.EmbeddedApp
             catch (Exception ex)
             {
                 MessageBox.Show(this, string.Format("{1}{0}{2}{0}{3}"
-                    ,Environment.NewLine
+                    , Environment.NewLine
                     , "*" + ex.ToString()
                     , "*StackTrace:" + ex.StackTrace
-                    ,"*Source:"+ex.Source
+                    , "*Source:" + ex.Source
                     ), "Failed to load app.");
                 if (AppProcess != null)
                 {
@@ -76,7 +77,7 @@ namespace SmileWei.EmbeddedApp
                     AppProcess = null;
                 }
             }
-            
+
         }
         /// <summary>
         /// 确保应用程序嵌入此容器
@@ -181,21 +182,21 @@ namespace SmileWei.EmbeddedApp
             set
             {
                 if (value == null || value == m_AppFilename) return;
-                var self = Application.ExecutablePath;
-                if (value.ToLower() == self.ToLower())
-                {
-                    MessageBox.Show("Please don't embed yourself！", "SmileWei.EmbeddedApp");
-                    return;
-                }
-                if (!value.ToLower().EndsWith(".exe"))
-                {
-                    MessageBox.Show("target is not an *.exe！", "SmileWei.EmbeddedApp");
-                }
-                if (!File.Exists(value))
-                {
-                    MessageBox.Show("target does not exist！", "SmileWei.EmbeddedApp");
-                    return;
-                }
+                //var self = Application.ExecutablePath;
+                //if (value.ToLower() == self.ToLower())
+                //{
+                //    MessageBox.Show("Please don't embed yourself！", "SmileWei.EmbeddedApp");
+                //    return;
+                //}
+                //if (!value.ToLower().EndsWith(".exe"))
+                //{
+                //    MessageBox.Show("target is not an *.exe！", "SmileWei.EmbeddedApp");
+                //}
+                //if (!File.Exists(value))
+                //{
+                //    MessageBox.Show("target does not exist！", "SmileWei.EmbeddedApp");
+                //    return;
+                //}
                 m_AppFilename = value;
             }
         }
@@ -203,10 +204,10 @@ namespace SmileWei.EmbeddedApp
         /// 标识内嵌程序是否已经启动
         /// </summary>
         public bool IsStarted { get { return (this.AppProcess != null); } }
-        
+
         #endregion 属性
 
-      
+
         public void EmbedAgain()
         {
             EmbedProcess(AppProcess, this);
@@ -219,7 +220,7 @@ namespace SmileWei.EmbeddedApp
         /// <summary>
         /// 将指定的程序嵌入指定的控件
         /// </summary>
-        private bool EmbedProcess(Process app,Control control)
+        private bool EmbedProcess(Process app, Control control)
         {
             // Get the main handle
             if (app == null || app.MainWindowHandle == IntPtr.Zero || control == null) return false;

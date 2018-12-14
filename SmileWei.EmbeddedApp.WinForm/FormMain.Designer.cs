@@ -94,6 +94,7 @@
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "内嵌程序";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Resize += new System.EventHandler(this.FormMain_Resize);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

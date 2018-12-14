@@ -17,8 +17,8 @@ namespace SmileWei.EmbeddedApp.WinForm
             InitializeComponent();
             this.appBox.ShowEmbedResult = false;
             Application.Idle += Application_Idle;
-            //appBox.AppFilename = @"C:\Users\DELL\AppData\Local\Google\Chrome\Application\chrome.exe";
-            //appBox.Start();
+            appBox.AppFilename = @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe";
+            appBox.Start("www.baidu.com");
         }
 
         void Application_Idle(object sender, EventArgs e)
@@ -44,37 +44,25 @@ namespace SmileWei.EmbeddedApp.WinForm
 
         private void btnBrowseApp_Click(object sender, EventArgs e)
         {
-            if (openApp.ShowDialog(this)== DialogResult.OK)
+            if (openApp.ShowDialog(this) == DialogResult.OK)
             {
                 appBox.AppFilename = openApp.FileName;
-                appBox.Start();
+                appBox.Start(string.Empty);
                 if (appBox.IsStarted)
                 {
                     txtAppFilename.Text = appBox.AppFilename;
-                    
                 }
             }
-        }
-
-        private void lblEmbedAgain_Click(object sender, EventArgs e)
-        {
-            appBox.EmbedAgain();
-            //var embedResult = appBox.embedResult;
-            //if(embedResult==0)
-            //{
-            //    var errorString = AppContainer.GetLastError();
-            //    MessageBox.Show(errorString);
-            //}
         }
 
         private void lblEmbedHandle_Click(object sender, EventArgs e)
         {
             var frmHandle = new FormHandle();
-            if (frmHandle.ShowDialog()== System.Windows.Forms.DialogResult.OK)
+            if (frmHandle.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 var handle = frmHandle.GetHandle();
                 SetParent(handle, this.Handle);
-                Win32API.SetWindowLong(new HandleRef(this.appBox, handle), GWL_STYLE, WS_VISIBLE);       
+                Win32API.SetWindowLong(new HandleRef(this.appBox, handle), GWL_STYLE, WS_VISIBLE);
             }
         }
 
@@ -91,10 +79,7 @@ namespace SmileWei.EmbeddedApp.WinForm
         int nIndex,
         uint dwNewLong
         );
-        private void lblInfo_Click(object sender, EventArgs e)
-        {
-            //Clipboard.SetText(this.lblInfo.Text);
-        }
+
 
         private void FormMain_Resize(object sender, EventArgs e)
         {
